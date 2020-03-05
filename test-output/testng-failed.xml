@@ -7,7 +7,7 @@
         <methods>
           <include name="tearDownClass"/>
           <include name="setUpClass"/>
-          <include name="feature" invocation-numbers="0 1"/>
+          <include name="feature" invocation-numbers="0"/>
         </methods>
       </class> <!-- com.testAutomation.testRunner.TestRunner -->
     </classes>

@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.CucumberFeatureWrapper;
-import cucumber.api.testng.PickleEventWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 
 @CucumberOptions(features= {"src/test/resources/features"},
@@ -16,32 +15,32 @@ import cucumber.api.testng.TestNGCucumberRunner;
 						 			  "json:target/cucumber-reports/CucumberTestReport.json", 
 			                          "rerun:target/cucumber-reports/rerun.txt" },
 				 monochrome = true)
-public class TestRunner {
-	 private TestNGCucumberRunner testNGCucumberRunner;
+public class TestRunner{
 
-	    @BeforeClass(alwaysRun = true)
-	    public void setUpClass() throws Exception {
-	        testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-	    }
+	private TestNGCucumberRunner testNGCucumberRunner;
 
-	    
-	    @Test(dataProvider = "features")    
-	    public void feature(PickleEventWrapper eventwrapper,CucumberFeatureWrapper cucumberFeature) throws Throwable {
-	    	//testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
-	    	testNGCucumberRunner.runScenario(eventwrapper.getPickleEvent());
-	    }
+    @BeforeClass(alwaysRun = true)
+    public void setUpClass() throws Exception {
+        testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
+    }
 
-	    /**
-	     * @return returns two dimensional array of {@link CucumberFeatureWrapper} objects.
-	     */
-	    @DataProvider
-	    public Object[][] features() {
-	    	 return testNGCucumberRunner.provideScenarios();
-	    }
+    
+    @Test(groups = "cucumber", description = "Runs Cucumber Feature", dataProvider = "features")
+    public void feature(CucumberFeatureWrapper cucumberFeature) {
+        testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
+    }
 
-	    @AfterClass(alwaysRun = true)
-	    public void tearDownClass() throws Exception {
-	        testNGCucumberRunner.finish();
-	    }
+    /**
+     * @return returns two dimensional array of {@link CucumberFeatureWrapper} objects.
+     */
+    @DataProvider
+    public Object[][] features() {
+        return testNGCucumberRunner.provideFeatures();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void tearDownClass() throws Exception {
+        testNGCucumberRunner.finish();
+    }
 
 }

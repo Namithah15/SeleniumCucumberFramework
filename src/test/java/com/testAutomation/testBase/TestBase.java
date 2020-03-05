@@ -8,8 +8,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class TestBase {
+	public  static WebDriver driver;
 	
-	public static WebDriver OpenBrowser(WebDriver driver,String browserName,String url) throws InterruptedException
+	public static WebDriver getBrowser(String browserName) throws InterruptedException
 	{
 		if(browserName.equalsIgnoreCase("chrome"))
 		{
@@ -17,7 +18,7 @@ public class TestBase {
 			driver=new ChromeDriver();
 			driver.manage().window().maximize();
 			driver.manage().deleteAllCookies();
-			driver.get(url);
+			//driver.get(url);
 			
 			Thread.sleep(5000);
 			return driver;	
@@ -33,14 +34,14 @@ public class TestBase {
 			capabilities.setCapability("requireWindowFocus", true);//to move mouse manually			
 			driver=new InternetExplorerDriver();
 			driver.manage().window().maximize();
-			driver.get(url);
+			//driver.get(url);
 			return driver;	
 		} else if(browserName.equalsIgnoreCase("Firefox"))
 		{
 			System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "/src/test/resources/drivers/geckodriver.exe");
 			driver=new FirefoxDriver();
 			driver.manage().window().maximize();
-			driver.get(url);
+			//driver.get(url);
 			return driver;	
 		}
 			return null;			
